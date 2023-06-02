@@ -1,25 +1,17 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import { getRandomFact } from './services/facts'
 
-const CAT_ENDPOINT_RANDOM_FACT = 'https://catfact.ninja/fact'
 const CAT_PREFIX_IMAGE = 'https://cataas.com'
 
 export function App () {
   const [fact, setFact] = useState()
   const [imageUrl, setImageUrl] = useState()
 
-  // useEffect  para recuperar la cita al recargar la pagina
+  // como acepta una funcion podemos pasarle asi getRandomFact
   useEffect(() => {
-    // Primer Objetivo
-    fetch(CAT_ENDPOINT_RANDOM_FACT)
-      .then(res => res.json())
-      // TODO: Handle error if !res.ok
-      .then(data => {
-        // Accedemos a data y guardamos el hecho en la variable fact
-        const { fact } = data
-        setFact(fact)
-      })
-  }, []) // [] Solo se ejecuta cuando se monta el componente
+    getRandomFact().then(newFact => setFact(newFact))
+  }, [])
 
   // useEffect para recuperar la imagen cada vez que tenemos cita nueva
   useEffect(() => {
@@ -41,9 +33,17 @@ export function App () {
       })
   }, [fact])
 
+  const handleClick = async () => {
+    const newFact = await getRandomFact()
+    setFact(newFact)
+  }
+
   return (
     <main className='main'>
       <h1>App de gatitos</h1>
+
+      <button onClick={handleClick}>Get new fact</button>
+
       {fact && <p>{fact}</p>}
       {imageUrl && (
         <img
