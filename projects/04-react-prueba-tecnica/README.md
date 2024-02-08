@@ -3,7 +3,7 @@
 APIs: 
 - Facts Random: https://catfact.ninja/fact
 - Imagen random: https://cataas.com/cat/says/hello
- - Endopoint for the image: `https://cataas.com/cat/says/${firstWord}?size=50&color=red&json=true`
+- Endopoint for the image: `https://cataas.com/cat/says/${firstWord}?size=50&color=red&json=true`
 
 Objetivos:
 - Recupera un hecho aleatorio de gatos de la primera API (imprimelo por pantalla) 
